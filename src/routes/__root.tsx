@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { AuthProvider } from "@/lib/auth";
+import { ToastProvider } from "@/components/Toast";
 
 function NotFoundComponent() {
   return (
@@ -113,8 +115,11 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <AuthProvider>
+        <ToastProvider>
+          <Outlet />
+        </ToastProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
